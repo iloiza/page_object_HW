@@ -54,5 +54,9 @@ public abstract class AbsBasePage extends AbsPageObject {
 
 
     }
+    public void clickButton (By by){
+
+        driver.findElement(by).click();
+    }
 
 }

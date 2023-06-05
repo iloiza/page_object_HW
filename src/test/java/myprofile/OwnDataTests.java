@@ -1,7 +1,6 @@
 package myprofile;
 
 import components.DropDownList;
-import components.Buttons;
 import components.TextField;
 import data.DropDownListData;
 import data.SelectListData;
@@ -41,6 +40,7 @@ public class OwnDataTests {
 
     @Test
     public void addOwnData() throws InterruptedException {
+        String path = "/lk/biography/personal/";
         String firstName = "Студент";
         String lastName = "Тестовый";
         String fNameLat = "Student";
@@ -54,29 +54,31 @@ public class OwnDataTests {
 
         new MainPage(driver).open();
         new MainPage(driver).loginLK();
-        new LKAboutMePage(driver, "/lk/biography/personal/").open();
-        new TextField(driver).fillTextField(TextFieldData.FIRST_NAME, firstName);
-        new TextField(driver).fillTextField(TextFieldData.LAST_NAME, lastName);
-        new TextField(driver).fillTextField(TextFieldData.FNAME_LAT, fNameLat);
-        new TextField(driver).fillTextField(TextFieldData.LNAME_LAT, lNameLat);
-        new TextField(driver).fillTextField(TextFieldData.BLOG_NAME, blogName);
-        new TextField(driver).fillTextField(TextFieldData.BIRTH_DATE, birthDate);
-        String country = new DropDownList(driver).clickAndChooseDropDownList(COUNTRY, 6);
-        String city = new DropDownList(driver).clickAndChooseDropDownList(CITY, 3);
+        new LKAboutMePage(driver, path).open();
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.FIRST_NAME, firstName);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.LAST_NAME, lastName);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.FNAME_LAT, fNameLat);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.LNAME_LAT, lNameLat);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.BLOG_NAME, blogName);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.BIRTH_DATE, birthDate);
+        String country = new DropDownList(driver).clickAndChooseDropDownList(COUNTRY, 4);
+        String city = new DropDownList(driver).clickAndChooseDropDownList(CITY, 2);
         String english_level = new DropDownList(driver).clickAndChooseDropDownList(ENGLISH_LEVEL, 3);
-        new Buttons(driver).clickButton(By.xpath("//button[contains(text(), 'Добавить')]"));
-        String contactFirst = new DropDownList(driver).clickAndChooseDropDownList(CONTACT_FIRST, 3);
-        new TextField(driver).fillTextField(TextFieldData.CONTACT_FIRST, contactFirstText);
-        String contactSecond = new DropDownList(driver).clickAndChooseDropDownList(CONTACT_SECOND, 6);
-        new TextField(driver).fillTextField(TextFieldData.CONTACT_SECOND, contactSecondText);
+        new LKAboutMePage(driver, path).clickButton(By.xpath("//button[contains(text(), 'Добавить')]"));
+        //String contactFirst =
+        new DropDownList(driver).clickAndChooseDropDownList(CONTACT_FIRST, 6);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.CONTACT_FIRST, contactFirstText);
+        //String contactSecond =
+        new DropDownList(driver).clickAndChooseDropDownList(CONTACT_SECOND, 4);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.CONTACT_SECOND, contactSecondText);
         new DropDownList(driver).chooseFromSelectList(SelectListData.FEMALE);
-        new TextField(driver).fillTextField(TextFieldData.COMPANY, companyName);
-        new TextField(driver).fillTextField(TextFieldData.WORK, work);
-        new Buttons(driver).clickButton(By.xpath("//button[contains(text(), 'Сохранить и продолжить')]"));
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.COMPANY, companyName);
+        new LKAboutMePage(driver, path).fillTextField(TextFieldData.WORK, work);
+        new LKAboutMePage(driver, path).clickButton(By.xpath("//button[contains(text(), 'Сохранить и продолжить')]"));
         driver.manage().deleteAllCookies();
         new MainPage(driver).open();
         new MainPage(driver).loginLK();
-        new LKAboutMePage(driver, "/lk/biography/personal/").open();
+        new LKAboutMePage(driver, path).open();
 
         new TextField(driver).compareValuesTextField(TextFieldData.FIRST_NAME, firstName);
         new TextField(driver).compareValuesTextField(TextFieldData.LAST_NAME, lastName);
